@@ -1,0 +1,44 @@
+<%- include("headerFirst") -%>
+
+<div class="b-example-divider"></div>
+
+<div class="container col-xl-12 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      
+      <div class="col-md-10 mx-auto col-lg-5">
+          <div class="col-lg-12 text-center text-lg-center">
+        <h1 class="display-4 fw-bold lh-1 mb-3">Sign Up User</h1>
+        </div>
+        <form class="p-4 p-md-5 border rounded-3 bg-light" action="/signup" method="post">
+
+            <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="First Name" name = "firstNameInput" required>
+            <label for="floatingPassword">First Name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Last Name" name = "lastNameInput" required>
+            <label for="floatingPassword">Last Name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name = "emailInput" required>
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name = "passwordInput" required>
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="checkbox mb-3">
+           
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+          <hr class="my-4">
+          
+          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<%- include("footer") -%>

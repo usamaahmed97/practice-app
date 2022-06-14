@@ -1,0 +1,39 @@
+<%- include("header") -%>
+<script src="app.js"></script>
+
+<h1 class="display-4 fw-bold lh-1 mb-3">Your Repositories</h1>
+
+
+<section>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+
+          <thead>
+            <tr>
+              <th scope="col">RID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Details</th>
+             
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% for (var i =0; i <dataLength;  i++ ) { %>
+              
+              <tr>
+                <td><%= globalRepositoryIds[i] %></td>
+                <td><%= globalRepositoryNames[i] %></td>
+                <td><%= globalRepositoryDescriptions[i] %></td>
+                <td><form action="/selectedRepository/<%= globalRepositoryIds[i] %>" method="get"><button type="submit" class="btn btn-link" >Open</button> </form></td>
+              </tr>
+              
+              <% } %>
+            
+          </tbody>
+          
+        </table>   
+  </section>
+
+<%- include("footer") -%>

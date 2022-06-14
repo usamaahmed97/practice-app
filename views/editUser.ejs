@@ -1,0 +1,48 @@
+<%- include("header") -%>
+
+<div class="container">
+    <div class="py-5 text-center">
+        
+        <h2>Edit User</h2>
+        
+            <form class="needs-validation" novalidate action="/editUser" method = "post">
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="firstName" class="form-label">First name</label>
+                  <input type="text" class="form-control" name = "fName" value="<%= firstName%>" required>
+                  <div class="invalid-feedback">
+                    Valid first name is required.
+                  </div>
+                </div>
+    
+                <div class="col-sm-6">
+                  <label for="lastName" class="form-label">Last name</label>
+                  <input type="text" class="form-control" name = "lName" value="<%= lastName%>" required>
+                  <div class="invalid-feedback">
+                    Valid last name is required.
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="firstName" class="form-label">Email</label>
+                    <input type="text" class="form-control" name = "email" value="<%= email%>" required>
+                    <div class="invalid-feedback">
+                      Valid first email is required.
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <label for="firstName" class="form-label">Password</label>
+                    <input type="password" class="form-control" name = "pass" value="<%= password%>" required>
+                    <div class="invalid-feedback">
+                      Valid password name is required.
+                    </div>
+                  </div>
+                  <button class="w-100 btn btn-lg btn-primary" type="submit">Save Changes</button>
+            </form>
+              
+
+    </div>         
+
+</div>
+<%- include("footer") -%>
