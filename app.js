@@ -394,11 +394,11 @@ app.get("/deleteRepository", (req, res)=>{
     .catch((err)=>{console.log(err)});
  });
 
- app.get("/newRoute", (req, res){
+ app.get("/newRoute", (req, res)=>{
 
-    // New route added for Learning PRs.
+    res.render('newRoute');
 
- });
+ })
  
 
 const PORT = process.env.PORT || 4000
