@@ -393,9 +393,17 @@ app.get("/deleteRepository", (req, res)=>{
     })
     .catch((err)=>{console.log(err)});
  });
+
+ app.get("/newRoute", (req, res)=>{
+
+    res.render('newRoute');
+
+ })
  
 
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {console.log(`CRUD app server running on Port ${PORT}`)});
 
-// New comments added in this file. 
+
+
+// New comments added for new feature branch. 
