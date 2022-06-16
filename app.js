@@ -68,6 +68,11 @@ app.post("/signup",(req, res)=>{
     const emailEntered = req.body.emailInput;
     const passwordEntered = req.body.passwordInput;
     
+   if(firstNameEntered =="" || lastNameEntered =="" || emailEntered == "" || passwordEntered =="")
+   {
+    res.render("signup");
+   }
+   else{
     return User.create({
 
         firstName:firstNameEntered,
@@ -85,6 +90,7 @@ app.post("/signup",(req, res)=>{
         console.log(`Error: ${err}`);
         res.render("signup");
     });
+   }
 
 });
 
@@ -401,7 +407,7 @@ app.get("/deleteRepository", (req, res)=>{
  })
  
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {console.log(`CRUD app server running on Port ${PORT}`)});
 
 
