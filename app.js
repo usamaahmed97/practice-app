@@ -393,13 +393,19 @@ app.get("/deleteRepository", (req, res)=>{
     })
     .catch((err)=>{console.log(err)});
  });
-
+git 
  app.get("/newRoute", (req, res)=>{
 
     res.render('newRoute');
 
  })
  
+
+ app.get("/anotherRoute", (req, res)=>{
+
+    res.render('newRoute');
+
+ })
 
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {console.log(`CRUD app server running on Port ${PORT}`)});
