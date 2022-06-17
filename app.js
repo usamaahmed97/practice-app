@@ -6,7 +6,11 @@ const bodyParser = require("body-parser");
 const path =require("path");
 const User = require("./models/User");
 const Repository = require("./models/Repository");
-var _ = require('lodash');
+const _ = require('lodash');
+const bcrypt = require("bcrypt");
+const { result } = require("lodash");
+require('dotenv').config()
+
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
@@ -37,6 +41,7 @@ var globalAllRepoIds = [];
 var globalAllrepoNames = [];
 var globalAllRepoDescriptions = [];
 var globalAllUserIds = [];
+var hashedPassword ="";
 
 app.get("/", (req, res) =>{
 
@@ -61,7 +66,7 @@ app.get("/signup", (req, res)=>{
 
 });
 
-app.post("/signup",(req, res)=>{
+app.post("/signup", async(req, res)=>{
 
     const firstNameEntered = req.body.firstNameInput;
     const lastNameEntered = req.body.lastNameInput;
@@ -73,12 +78,17 @@ app.post("/signup",(req, res)=>{
     res.render("signup");
    }
    else{
+
+    const saltRounds = 8
+    hashedPassword = await bcrypt.hash(passwordEntered, saltRounds);
+    console.log("Password Hashed");
+   
     return User.create({
 
         firstName:firstNameEntered,
         lastName:lastNameEntered,
         email:emailEntered,
-        password:passwordEntered
+        password:hashedPassword
 
     })
     .then(()=>{
@@ -90,40 +100,47 @@ app.post("/signup",(req, res)=>{
         console.log(`Error: ${err}`);
         res.render("signup");
     });
-   }
-
+}
 });
 
-app.post("/signin", (req, res)=>{
+
+app.post("/signin", async (req, res)=>{
 
      //Getting the signed in data.
     const email=req.body.siEmailTyped;
-    const password = req.body.siPasswordTyped;
+    const password2 = req.body.siPasswordTyped;
 
-    User.findOne({where:{email:email, password:password}})
+    User.findOne({where:{email:email}})
     .then((data)=>{
+        if(data !=null)
+        {
+            const {id, firstName, email, password} = data;
+            hashedPassword = password;
+            bcrypt.compare(password2, hashedPassword, (err, result) =>{
 
-        if(data != null){
-            const {firstName, email, id} = data;
-            globalFirstName=firstName;
-            globalId = id;
-            globalEmail = email;
-            res.redirect("/dashboard/"+id);
-            
+                if(result){
+
+                    console.log("Password Matched");
+                    globalFirstName=firstName;
+                    globalId = id;
+                    globalEmail = email;
+                    res.redirect("/dashboard/"+id);
+                }
+                else{
+
+                    console.log(`Invalid Password`);
+                    errorMessage = "Invalid Email or Password."
+                    globalId="";
+                    res.render("signin", {errorMessage:errorMessage});
+                }
+            });
         }
         else{
-           
-            console.log(`Invalid Email or Password`);
-            errorMessage = "Invalid Email or Password."
-            globalId="";
             res.render("signin", {errorMessage:errorMessage});
         }
-
     })
     .catch((err)=>{console.log(err)});
-
 });
-
 
 app.get("/dashboard/:id", (req, res)=>{
 
@@ -399,12 +416,6 @@ app.get("/deleteRepository", (req, res)=>{
     })
     .catch((err)=>{console.log(err)});
  });
-git 
- app.get("/newRoute", (req, res)=>{
-
-    res.render('newRoute');
-
- })
  
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {console.log(`CRUD app server running on Port ${PORT}`)});
